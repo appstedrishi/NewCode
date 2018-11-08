@@ -6,6 +6,7 @@
 @synthesize text = text_, feedback = feedback_;
 
 + (Question *)questionWithText:(NSString *)question {
+    
     return [[Question alloc] initWithQuestion:question];
 }
 
@@ -22,7 +23,8 @@
     return self;
 }
 
-- (id)initWithQuestion:(NSString *)question {
+- (Question *)initWithQuestion:(NSString *)question {
+    self = [super init];
 	if ([self init]) {
 		self.text = question;
 		self.html = question;

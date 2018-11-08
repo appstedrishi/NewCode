@@ -19,7 +19,7 @@ static const CGFloat HEIGHT = 800.0;
 - (id)init {
     if (self = [super init]) {
 		self.tableView.backgroundColor = [UIColor colorWithHue:0.000 saturation:0.000 brightness:0.969 alpha:1.000];
-        self.title = @"Recent Queries";
+        self.title = NSLocalizedString(@"Recent Queries", nil);
     }
     return self;
 }
@@ -39,9 +39,12 @@ static const CGFloat HEIGHT = 800.0;
 	//[TTStyleSheet setGlobalStyleSheet:[[[SQTableStyleSheet alloc] init] autorelease]]; 
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+    -(BOOL)shouldAutorotate {
+        return  YES;
+    }
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
 
 
 #pragma mark Table view data source
@@ -74,7 +77,7 @@ static const CGFloat HEIGHT = 800.0;
         cell.textLabel.text = [[self.delegate.history.questionStack objectAtIndex:indexPath.row] text];
         cell.textLabel.textColor = [UIColor darkTextColor];
     } else {
-        cell.textLabel.text = @"no recent questions";
+        cell.textLabel.text = NSLocalizedString(@"no recent questions", nil);
         cell.textLabel.textColor = [UIColor grayColor];
     }
     

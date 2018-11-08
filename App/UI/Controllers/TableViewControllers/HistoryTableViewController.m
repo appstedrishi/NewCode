@@ -79,7 +79,7 @@
     // make header
     UILabel *header = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 280, 44)];
     header.font = [UIFont boldSystemFontOfSize:17];
-    header.text = @"History";
+    header.text = NSLocalizedString(@"History", nil);
     header.textAlignment = NSTextAlignmentCenter;
     header.textColor = [UIColor whiteColor];
     header.backgroundColor = [UIColor clearColor];// colorWithPatternImage:[UIImage imageNamed:@"panel-bg.png"]];
@@ -96,6 +96,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:true];
     [self computeRows:YES];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.currentIndex inSection:0];
     if (![self.tableView.indexPathsForVisibleRows containsObject:indexPath]) {
@@ -110,9 +111,16 @@
     self.delegate = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+    -(BOOL)shouldAutorotate {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        
+        return (orientation == UIInterfaceOrientationPortrait);
+        
+       
+    }
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+//
+//}
 
 - (NSInteger)invertedIndex:(NSIndexPath *)indexPath {
     return self.historyItems.count-indexPath.row-1;

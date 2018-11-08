@@ -979,7 +979,7 @@ kDetailViewWidth, kHistoryTableRowHeight*kMaxHistoryTableRowCount + kStatusBarHe
 							 self.statusLabel1.hidden = NO;
 							 self.statusLabel2.hidden = NO;
                              
-                             if ([activityIndicator_ respondsToSelector:@selector(setColor:)]) {
+                             if ([self->activityIndicator_ respondsToSelector:@selector(setColor:)]) {
                                  CGRect frame = self.statusLabel1.frame;
                                  frame.size.width = self.backgroundView.frame.size.width-60.f;
                                  self.statusLabel1.frame = frame;

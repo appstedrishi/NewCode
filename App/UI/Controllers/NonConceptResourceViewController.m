@@ -67,40 +67,47 @@
 //    [super viewDidUnload];
 //}
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+    -(BOOL)shouldAutorotate {
+        return YES;
+    }
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-	self.orientation = toInterfaceOrientation;
-	[UIView cancelPreviousPerformRequestsWithTarget:self selector:@selector(setNavBarHidden:) object:[NSNumber numberWithBool:YES]];
-//	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    [self.delegate willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
+    
+    - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+        [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+        UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        self.orientation = toInterfaceOrientation;
+        [self.delegate viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+       
+        
+        [self.navigationBar.topItem.titleView sizeToFit];
+        if (self.navigationBar.alpha < 1) {
+            // This (with matching setStatusBarHidden:NO in willRotateToInterfaceOrientation) works around a sizing bug related to the hidden toolbar.
+            //        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+        }
+        if (self.image) {
+            CGFloat newMinZoom = [self calculateMinZoom];
+            
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:0.2];
+            if (newMinZoom > 0) {
+                if (self.imageScrollView.zoomScale < newMinZoom || self.imageScrollView.zoomScale == self.imageScrollView.minimumZoomScale) {
+                    [self.imageScrollView setMinimumZoomScale: newMinZoom];
+                    [self.imageScrollView setZoomScale: newMinZoom];
+                } else {
+                    [self.imageScrollView setMinimumZoomScale: newMinZoom];
+                }
+            }
+            self.image.frame = [self centeredFrameForScrollView:self.imageScrollView andUIView:self.image];
+            [UIView commitAnimations];
+        }
+        
+       
+    }
+    
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	[self.navigationBar.topItem.titleView sizeToFit];
-	if (self.navigationBar.alpha < 1) {
-		// This (with matching setStatusBarHidden:NO in willRotateToInterfaceOrientation) works around a sizing bug related to the hidden toolbar.
-//		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-	}
-	if (self.image) {
-		CGFloat newMinZoom = [self calculateMinZoom];
-		
-		[UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.2];
-		if (newMinZoom > 0) {
-			if (self.imageScrollView.zoomScale < newMinZoom || self.imageScrollView.zoomScale == self.imageScrollView.minimumZoomScale) {
-				[self.imageScrollView setMinimumZoomScale: newMinZoom];
-				[self.imageScrollView setZoomScale: newMinZoom];
-			} else {
-				[self.imageScrollView setMinimumZoomScale: newMinZoom];
-			}
-		}
-		self.image.frame = [self centeredFrameForScrollView:self.imageScrollView andUIView:self.image];
-        [UIView commitAnimations];
-	}
-}
+
+    
+
 
 - (void)close:(id)sender {
 	[UIView cancelPreviousPerformRequestsWithTarget:self selector:@selector(setNavBarHidden:) object:[NSNumber numberWithBool:YES]];
@@ -144,7 +151,7 @@
 ////                          [NSValue valueWithUIOffset:UIOffsetMake(0, -1)], UITextAttributeTextShadowOffset,
 //                          [UIFont boldSystemFontOfSize:16.0], NSFontAttributeName,
 //                          nil];
-        self.navigationBar.topItem.title = title;
+        self.navigationBar.topItem.title = NSLocalizedString(title, nil);
 	}
     
 	if (imgSrc.length > 0) {

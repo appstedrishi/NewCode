@@ -223,6 +223,7 @@ static const NSInteger SHENANIGANS_TAG = 666;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:true];
     [self enableQuestionInputs];
     [self.questionTextView becomeFirstResponder];
     if (self.suggestedQuestionsList.count == 0) {
@@ -233,6 +234,7 @@ static const NSInteger SHENANIGANS_TAG = 666;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:true];
 	[self closeHistoryPopover];
     [self disableQuestionInputs];
     [self resetSuggestedQuestionsConnection];
@@ -241,9 +243,13 @@ static const NSInteger SHENANIGANS_TAG = 666;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+    -(BOOL)shouldAutorotate {
+        return  YES;
+    }
+    
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
 
 //- (BOOL)disablesAutomaticKeyboardDismissal {
 //    return YES;
@@ -425,7 +431,7 @@ static NSString *KEYWORD_RELATE = @"relate";
              }
              else
              {
-                 self.networkErrorMessageLabel.text = @"Failed to retrieve questions";
+                 self.networkErrorMessageLabel.text = NSLocalizedString(@"Failed to retrieve questions", nil);
                  self.networkErrorOverlayView.hidden = NO;
              }
          }
@@ -454,7 +460,7 @@ static NSString *KEYWORD_RELATE = @"relate";
         [self updateQuestions];
     } else {
         // failed to get suggestions, show error message
-        self.networkErrorMessageLabel.text = @"Failed to retrieve questions";
+        self.networkErrorMessageLabel.text = NSLocalizedString(@"Failed to retrieve questions", nil);
         self.networkErrorOverlayView.hidden = NO;
     }
     [self setSuggestedQuestionsTableLoadingState:NO];
@@ -553,9 +559,9 @@ static NSString *KEYWORD_RELATE = @"relate";
     [header addSubview:label];
     
     if (section == 0) {
-        label.text = @"SUGGESTIONS";
+        label.text = NSLocalizedString(@"SUGGESTIONS", nil);
     } else {
-        label.text = @"RECENT";
+        label.text = NSLocalizedString(@"RECENT", nil);
     }
     return header;
 }
@@ -651,7 +657,7 @@ static NSString *KEYWORD_RELATE = @"relate";
 			id temp = [newQuestionText stringByReplacingOccurrencesOfString:@"<span class=\"keywords\">" withString:@""];
             newQuestion.text = [temp stringByReplacingOccurrencesOfString:@"</span>" withString:@""];
             newQuestion.html = [NSString stringWithFormat:@"<span class='blackText'>%@</span>", newQuestionText];
-            [suggestedQuestionsListInProgress_ addObject:newQuestion];
+            [self->suggestedQuestionsListInProgress_ addObject:newQuestion];
 
              newQuestionText = nil;
         }
@@ -882,7 +888,7 @@ static NSString *KEYWORD_RELATE = @"relate";
 //	alert.tag = SHENANIGANS_TAG;
 //	[alert show];
     UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Connection error"  message:[error localizedDescription]  preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         NSLog(@"%ld",(long)SHENANIGANS_TAG);
         [self dismissViewControllerAnimated:YES completion:nil];
     }]];

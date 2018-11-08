@@ -164,27 +164,49 @@ typedef enum {
     self.webView = nil;
     self.loadingOverlayView  = nil;
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self notifyWebViewContentOfOrientation:toInterfaceOrientation];
-    [self layOutWebViewForOrientation:toInterfaceOrientation];
-    self.loadingOverlayBackgroundView.hidden = UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
-(NSTimeInterval)duration {
     
-    
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation) || !self.delegate.leftNavViewIsOpen) {
-        for (HighlightView *highlightView in self.highlightViews) {
-            [highlightView willRotateToInterfaceOrientation:toInterfaceOrientation];
-        }
+    -(BOOL)shouldAutorotate {
+        return YES;
     }
-}
+
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
+    - (void)handleInterfaceOrientation {
+        
+        UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+
+        [self notifyWebViewContentOfOrientation:toInterfaceOrientation];
+        [self layOutWebViewForOrientation:toInterfaceOrientation];
+        self.loadingOverlayBackgroundView.hidden = UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+       
+    }
+    
+    - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+        [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            // what ever you want to prepare
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            [self handleInterfaceOrientation];
+        }];
+    }
+
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//    [self notifyWebViewContentOfOrientation:toInterfaceOrientation];
+//    [self layOutWebViewForOrientation:toInterfaceOrientation];
+//    self.loadingOverlayBackgroundView.hidden = UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+//}
+
+//- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
+//(NSTimeInterval)duration {
+//    
+//    
+//    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation) || !self.delegate.leftNavViewIsOpen) {
+//        for (HighlightView *highlightView in self.highlightViews) {
+//            [highlightView willRotateToInterfaceOrientation:toInterfaceOrientation];
+//        }
+//    }
+//}
 
 #pragma mark Actions
 
@@ -955,7 +977,7 @@ typedef enum {
 
 
 - (void)setUpHighlightContextMenuItem {
-    UIMenuItem *highlightMenuItem = [[UIMenuItem alloc] initWithTitle:@"Highlight" action:@selector(highlight:)];
+    UIMenuItem *highlightMenuItem = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Highlight", nil) action:@selector(highlight:)];
     [UIMenuController sharedMenuController].menuItems = [NSArray arrayWithObject:highlightMenuItem];
 }
 

@@ -260,7 +260,7 @@
     [CATransaction commit];
     
     [UIView animateWithDuration:0.3f animations:^{
-        [_handleAccessoryView setAlpha:1.0f];
+        [self->_handleAccessoryView setAlpha:1.0f];
     }];
 }
 
@@ -282,7 +282,7 @@
     [CATransaction commit];
     
     [UIView animateWithDuration:0.3f animations:^{
-        [_handleAccessoryView setAlpha:0.0f];
+        [self->_handleAccessoryView setAlpha:0.0f];
     }];
 }
 

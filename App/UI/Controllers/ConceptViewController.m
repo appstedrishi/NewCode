@@ -177,17 +177,21 @@
     [super viewDidAppear:animated];
     [self configNavigationViewWidth:NAV_PANEL_WIDTH centerInteractivity:IIViewDeckCenterHiddenUserInteractive];
 }
+    
+    -(BOOL)shouldAutorotate {
+        return YES;
+    }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self layoutContainedViewContainers];
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
+//
+//- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//}
+//
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//    [self layoutContainedViewContainers];
+//}
 
 #pragma mark - Actions
 - (void)goBack {
@@ -572,7 +576,8 @@
         [Logger log:@"Asked question (SQ link):" withArguments:request.URL.host];
     } else {
         // unhandled type, such as HTTP, so bump it out to Safari
-        [[UIApplication sharedApplication] openURL:[request URL]];
+        [[UIApplication sharedApplication] openURL:[request URL] options:@{} completionHandler:nil];
+       // [[UIApplication sharedApplication] openURL:[request URL]];
     }
 }
 
@@ -799,7 +804,7 @@
         //        [alert show];
         
         UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Connection error"  message:msg  preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }]];
         [self presentViewController:alertController animated:YES completion:nil];
@@ -816,7 +821,7 @@
     msg = [msg stringByAppendingString:@"\n\nSome answers are slow the first time you ask. Try asking again."];
     
     UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Connection error"  message:msg  preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }]];
     [self presentViewController:alertController animated:YES completion:nil];

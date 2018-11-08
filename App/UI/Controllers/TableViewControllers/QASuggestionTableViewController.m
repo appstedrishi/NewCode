@@ -42,11 +42,15 @@
 //    // Release any retained subviews of the main view.
 //    // e.g. self.myOutlet = nil;
 //}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (BOOL)shouldAutorotate {
+    
+    UIInterfaceOrientation toInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
 }
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//}
 
 #pragma mark - Table view data source
 
@@ -81,8 +85,8 @@
         QASuggestedTriggerTableViewCell *cell = (QASuggestedTriggerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
         // Configure the cell...
-        cell.triggerLabel.text = @"define";
-        cell.questionLabel.text = @"define cellular respiration";
+        cell.triggerLabel.text = NSLocalizedString(@"define", nil);
+        cell.questionLabel.text = NSLocalizedString(@"define cellular respiration", nil);
         
         return cell;
     //}

@@ -141,12 +141,12 @@ static NSString *DATE_KEY = @"date";
      {
          if (success) {
             
-         [suggestedQuestionsList_ removeAllObjects];
+             [self->suggestedQuestionsList_ removeAllObjects];
          NSXMLParser *xmlParser=[[NSXMLParser alloc]initWithData:data];
          [xmlParser setDelegate:self];
          [xmlParser parse];
-         NSLog(@"xml data %@",marrXMLData);
-         self.suggestedQuestionsList=[marrXMLData mutableCopy];
+             NSLog(@"xml data %@",self->marrXMLData);
+             self.suggestedQuestionsList=[self->marrXMLData mutableCopy];
          responsearray(YES,[self.suggestedQuestionsList mutableCopy]);
          }
          else

@@ -89,7 +89,7 @@ static const char *CHAPTER_ELEMENT_NAME = "chapter";
 
     parserDelegate.didEndElement = ^(const char *elementName) {
         if (0 == strcmp(elementName, CHAPTER_ELEMENT_NAME)) {
-            [chapters_ addObject:chapter];
+            [self->chapters_ addObject:chapter];
              chapter = nil;
         } else if (chapter) {
             [chapter parser:nil didEndElement:elementName];

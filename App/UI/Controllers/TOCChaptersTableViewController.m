@@ -53,11 +53,16 @@
     [self.tableView setTableHeaderView:v];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+    -(BOOL)shouldAutorotate {
+        return YES;
+    }
+    
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:true];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 

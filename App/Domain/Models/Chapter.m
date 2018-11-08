@@ -94,7 +94,7 @@ static const char *TITLE_ELEMENT_NAME = "title";
 
     parserDelegate.didEndElement = ^(const char *elementName) {
         if ([self isConceptElement:elementName]) {
-            [concepts_ addObject:concept];
+            [self->concepts_ addObject:concept];
              concept = nil;
         } else if (concept) {
             [concept parser:nil didEndElement:elementName];

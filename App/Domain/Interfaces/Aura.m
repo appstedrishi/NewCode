@@ -27,7 +27,7 @@ static Aura *aura__;
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
-    return [NSString stringWithFormat:@"%@ (%@)", [UIDevice currentDevice].name, (__bridge NSString *) uuidStr];
+    return [NSString stringWithFormat:@"%@ (%@)", ([UIDevice currentDevice].name), ((__bridge NSString *) uuidStr)];
 }
 
 + (NSString *)hostName {

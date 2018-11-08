@@ -38,6 +38,7 @@ deleteConfirmationImage = deleteConfirmationImage_, creationDateLabel = creation
 }
 
 - (id)initWithSuperview:(UIView *)superview highlight:(Highlight *)highlight orientation:(UIInterfaceOrientation)orientation {
+   // self = [super init];
     if ((self = [[[NSBundle mainBundle] loadNibNamed:@"HighlightToolbarView" owner:superview options:nil] objectAtIndex:0])) {
         self.orientation = orientation;
         self.highlight = highlight;
@@ -59,8 +60,10 @@ deleteConfirmationImage = deleteConfirmationImage_, creationDateLabel = creation
 
         [self setOriginForCurrentOrientation];
         [self setVisibility];
+        
     }
     return self;
+    
 }
 
 
@@ -109,7 +112,7 @@ deleteConfirmationImage = deleteConfirmationImage_, creationDateLabel = creation
                                    alertControllerWithTitle:@"Purchase Highlight Colors" message:msg preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* yesButton = [UIAlertAction
-                                    actionWithTitle:@"Buy"
+                                    actionWithTitle:NSLocalizedString(@"Buy", nil)
                                     style:UIAlertActionStyleDefault
                                     handler:^(UIAlertAction * action)
                                     {
@@ -118,7 +121,7 @@ deleteConfirmationImage = deleteConfirmationImage_, creationDateLabel = creation
                                     
                                     }];
         UIAlertAction* noButton = [UIAlertAction
-                                   actionWithTitle:@"Cancel"
+                                   actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                    style:UIAlertActionStyleCancel
                                    handler:^(UIAlertAction * action)
                                    {
@@ -150,9 +153,9 @@ deleteConfirmationImage = deleteConfirmationImage_, creationDateLabel = creation
     
     UIAlertController * alert=[UIAlertController
                                
-                               alertControllerWithTitle:@"In-App Purchases Disabled" message:@"Sorry, you can't really buy access to the other colors. Only yellow has been implemented." preferredStyle:UIAlertControllerStyleAlert];
+                               alertControllerWithTitle:NSLocalizedString(@"In-App Purchases Disabled", nil) message:NSLocalizedString(@"Sorry, you can't really buy access to the other colors. Only yellow has been implemented.", nil) preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* noButton = [UIAlertAction
-                               actionWithTitle:@"Shucks"
+                               actionWithTitle:NSLocalizedString(@"Shucks", nil)
                                style:UIAlertActionStyleCancel
                                handler:^(UIAlertAction * action)
                                {

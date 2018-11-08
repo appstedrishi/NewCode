@@ -10,11 +10,17 @@
 @synthesize didEncounterError = didEncounterError_;
 
 - (void)dealloc {
+ //   [super dealloc];
+//#if !II_ARC_ENABLED
+  //  [super dealloc];
+//#endif
     self.didStartElement = nil;
     self.didEndElement = nil;
     self.didFindCharacters = nil;
     self.didEncounterError = nil;
+   // [self.didEndElement re]
     [super dealloc];
+
 }
 
 - (void)parser:(PCKXMLParser *)parser didStartElement:(const char *)elementName attributeCount:(int)numAttributes attributeData:(const char**)attributes {

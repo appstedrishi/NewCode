@@ -281,7 +281,7 @@ static const char *UNIT_ELEMENT_NAME = "unit";
 
     delegate.didEndElement = ^(const char *elementName) {
         if (0 == strcmp(elementName, UNIT_ELEMENT_NAME)) {
-            [units_ addObject:unit];
+            [self->units_ addObject:unit];
              unit = nil;
         } else if (unit) {
             [unit parser:nil didEndElement:elementName];
@@ -313,7 +313,7 @@ static const char *CONCEPT_ELEMENT_NAME = "concept";
 
     delegate.didEndElement = ^(const char *elementName) {
         if (0 == strcmp(elementName, CONCEPT_ELEMENT_NAME)) {
-            [glossaryConcepts_ addObject:concept];
+            [self->glossaryConcepts_ addObject:concept];
              concept = nil;
         } else if (concept) {
             [concept parser:nil didEndElement:elementName];

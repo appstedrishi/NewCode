@@ -101,7 +101,7 @@
 	
 	if ([[self text] length] == 0 && ![self isFirstResponder]) {
 		[UIView animateWithDuration:0.35 animations:^{
-			[_placeholder setAlpha:1.0];
+            [self->_placeholder setAlpha:1.0];
 		}];
 	} else {
 		[_placeholder setAlpha:0.0];

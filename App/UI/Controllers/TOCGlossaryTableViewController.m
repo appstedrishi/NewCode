@@ -86,7 +86,7 @@ static const NSUInteger SECTION_COUNT = 27, SEARCH_INDEX_OFFSET = 1, SEARCH_INDE
 
 #pragma mark View lifecycle
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = [UIView new];
     self.tableView.backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"panel-bg"]];
@@ -103,7 +103,7 @@ static const NSUInteger SECTION_COUNT = 27, SEARCH_INDEX_OFFSET = 1, SEARCH_INDE
    [self.tableView setTableHeaderView:v];
    
     
-    self.navigationItem.title = @"Glossary";
+    self.navigationItem.title = NSLocalizedString(@"Glossary", nil);
 	self.containsFilteredList = [NSMutableArray arrayWithCapacity:[self.book.glossaryConcepts count]];
 	self.startsWithFilteredList = [NSMutableArray arrayWithCapacity:100];
 	
@@ -123,7 +123,7 @@ static const NSUInteger SECTION_COUNT = 27, SEARCH_INDEX_OFFSET = 1, SEARCH_INDE
         self.searchController.searchBar.backgroundColor = [UIColor colorWithRed:60.0/255 green:62.0/255 blue:70.0/255 alpha:1];
      [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
     self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    self.searchController.searchBar.placeholder = @"Search glossary";
+    self.searchController.searchBar.placeholder = NSLocalizedString(@"Search glossary", nil);
    // self.searchController.searchBar.text=@"asdffd";
   self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
    self.searchController.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -183,27 +183,49 @@ static const NSUInteger SECTION_COUNT = 27, SEARCH_INDEX_OFFSET = 1, SEARCH_INDE
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:true];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+
 	self.searchController = nil;
 	self.containsFilteredList = nil;
 	self.startsWithFilteredList = nil;
-	[super didReceiveMemoryWarning];
 }
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
-(NSTimeInterval)duration {
-     [self.searchController setActive:NO];
-    
    
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+    {
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+         {
+            // UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+             // do whatever
+         } completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
+         {
+             
+         }];
+        
+        [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+        [self.searchController setActive:NO];
+    }
     
-    [self.searchController setActive:NO];
-    return YES;
-}
+//- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:
+//(NSTimeInterval)duration {
+//     [self.searchController setActive:NO];
+//
+//
+//}
+
+    -(BOOL)shouldAutorotate {
+        [self.searchController setActive:NO];
+        return YES;
+    }
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//
+//    [self.searchController setActive:NO];
+//    return YES;
+//}
 
 #pragma mark Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

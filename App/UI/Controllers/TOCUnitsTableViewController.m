@@ -67,12 +67,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:true];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+    -(BOOL)shouldAutorotate {
+        return true;
+    }
+    
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
 
 #pragma mark Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

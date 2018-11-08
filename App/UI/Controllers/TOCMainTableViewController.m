@@ -25,7 +25,7 @@
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
         self.book = book;
         self.delegate = delegate;
-        self.navigationItem.title = @"Contents";
+        self.navigationItem.title = NSLocalizedString(@"Contents", nil);
     }
     return self;
 }
@@ -74,17 +74,23 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:true];
 //	self.contentSizeForViewInPopover = CGSizeMake(320, 572);
 	// archit  self.popover.popoverContentSize = CGSizeMake(320, 572+37);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:true];
 //    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
+    -(BOOL)shouldAutorotate {
+        return YES;
+    }
+    
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return YES;
+//}
 
 #pragma mark Table view delegate
 
@@ -143,7 +149,7 @@
     // cell.backgroundView = [UIView new];
     }
 	if ([self isGlossaryIndexPath:indexPath]) {
-		cell.textLabel.text = @"Glossary";
+		cell.textLabel.text = NSLocalizedString(@"Glossary", nil);
 		cell.detailTextLabel.text = nil;
 	} else {
 		Unit *unit = [self.book.units objectAtIndex:indexPath.row];

@@ -74,6 +74,7 @@ orientation = orientation_;
 }
 
 - (BOOL)resignFirstResponder {
+    [super resignFirstResponder];
     return [self.highlightNotecardView resignFirstResponder];
 }
 

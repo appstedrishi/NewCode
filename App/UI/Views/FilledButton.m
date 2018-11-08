@@ -36,7 +36,7 @@
         [super setBackgroundColor:[_originalBackgroundColor colorWithAlphaComponent:0.25]];
     } else {
         [UIView animateWithDuration:0.18 animations:^{
-            [super setBackgroundColor:_originalBackgroundColor];
+            [super setBackgroundColor:self->_originalBackgroundColor];
         }];
     }
 }

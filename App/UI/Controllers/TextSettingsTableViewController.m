@@ -37,7 +37,7 @@ NSString *contentSelectors = @"p:not(.toc-section, .toc-sub-section, .human-auth
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             if ([cell.textLabel.text isEqualToString:@"Verdana"]) {
-                cell.textLabel.text = @"Avenir Next";
+                cell.textLabel.text = NSLocalizedString(@"Avenir Next", nil);
                 cell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:cell.textLabel.font.pointSize];
                 break;
             }
@@ -46,6 +46,7 @@ NSString *contentSelectors = @"p:not(.toc-section, .toc-sub-section, .human-auth
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:true];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
@@ -105,13 +106,17 @@ NSString *contentSelectors = @"p:not(.toc-section, .toc-sub-section, .human-auth
     }
 }
 
-
-- (void)viewDidUnload {
+-(void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:true];
     [self setShowGlossaryLinksSwitch:nil];
     [self setFontTableViewCells:nil];
     [self setTextSizeStepper:nil];
     self.theContent = nil;
     self.delegate = nil;
-    [super viewDidUnload];
 }
+    
+//- (void)viewDidUnload {
+//
+//    [super viewDidUnload];
+//}
 @end
